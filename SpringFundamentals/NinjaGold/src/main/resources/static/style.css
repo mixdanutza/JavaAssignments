@@ -1,0 +1,51 @@
+.box{
+	border:2px solid black;
+	width:17%;
+	height:200px;
+	margin:1%;
+	text-align:center;
+	padding:2%;
+	display:inline-block;
+	border-radius:5px;
+}
+
+p{
+	font-size:40px;
+	
+}
+.button{
+	widht:50%;
+	height:35px;
+	margin:5%;
+	font-size:20px;
+	background-color: #D8B64A;
+	color:white;
+}
+
+.total{
+	display:inline-block;
+	font-size: 40px;
+	vertical-align:top;
+	}
+#miniBox{
+	border:2px solid black;
+	width: 150px;
+	height: 50px;
+	
+}
+
+.scroll{
+	width:80%;
+	height:200px;
+	border:2px solid black;
+	border-radius: 5px;
+	overflow:scroll;
+
+	}
+
+.red{
+	color:red;
+}
+ .green{
+ 	color:green;
+ }
