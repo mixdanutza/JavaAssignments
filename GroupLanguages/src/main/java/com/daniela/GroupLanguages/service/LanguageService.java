@@ -8,9 +8,15 @@ import java.util.Arrays;
 import org.springframework.stereotype.Service;
 
 import com.daniela.GroupLanguages.models.Language;
+import com.daniela.GroupLanguages.repositories.LanguageReposity;
 
 @Service
 public class LanguageService {
+	private LanguageReposity languageReposity;
+	public LanguageService(LanguageReposity languageReposity) {
+		this.languageReposity=languageReposity;	
+		
+	}
 	
 	private List<Language> languages=new ArrayList<Language>(Arrays.asList(
 			new Language("JAVA", "Daniela", "98.0.76"),
@@ -20,31 +26,25 @@ public class LanguageService {
 			));
 
 	public List<Language> getLanguages() {
-		return languages;
+		return (List<Language>) languageReposity.findAll();
 	}
 	
 	
-	public Language findByIndex(int index) {
-		if(index<languages.size()) {
-			return languages.get(index);
-		}else {
-			return null;
-		}
+	public Language findByIndex(long id) {
+		return languageReposity.findOne(id);
 	}
 	
 	public void addLanguage(Language language) {
-		languages.add(language);
+		languageReposity.save(language);
 	}
 	
-	public void editLanguage(int id, Language language) {
-		if(id<languages.size()) {
-			languages.set(id,language);
-		}
+	public void editLanguage(long id, Language language) {
+		languageReposity.save(language);
 	}
 	
-	public void deleteLanguage(int id) {
-		if(id<languages.size()) {
-			languages.remove(id);
+	public void deleteLanguage(long id) {
+		if(id<languageReposity.count()) {
+			languageReposity.delete(id);
 		}
 	}
 

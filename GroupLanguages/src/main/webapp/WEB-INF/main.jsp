@@ -28,16 +28,16 @@
     <th>Version</th>
     <th>Action</th>
   </tr>
-  <c:forEach items="${languages}" var="lan" varStatus="index">
+  <c:forEach items="${languages}" var="lan" >
   <tr>
-    <td><a href="/show/${index.index}"><c:out value="${lan.name}"/></a></td>
+    <td><a href="/show/${lan.id}"><c:out value="${lan.name}"/></a></td>
     <td><c:out value="${lan.creator}"/></td>
     <td><c:out value="${lan.version}"/></td>
     <td>
-    	<form action="/delete/${index.index}" method="POST" class="form">
+    	<form action="/delete/${lan.id}" method="POST" class="form">
     		<button class="button">delete</button>
     	</form>
-    	<form action="/edit/${index.index}" method="GET" class="form">
+    	<form action="/edit/${lan.id}" method="GET" class="form">
     		<button class="button">edit</button>
     	</form>
     </td>

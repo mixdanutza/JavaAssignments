@@ -57,14 +57,14 @@ public class Home {
 	}
 	
 	@RequestMapping("/show/{id}")
-	public String findByIndex(Model model, @PathVariable("id") int index) {
+	public String findByIndex(Model model, @PathVariable("id") long index) {
 		Language language=languageService.findByIndex(index);
 		model.addAttribute("language", language);
 		return "info.jsp";
 	}
 	
 	@RequestMapping("/edit/{id}")
-	public String edit(@PathVariable("id") int index, Model model) {
+	public String edit(@PathVariable("id") long index, Model model) {
 		Language language=languageService.findByIndex(index);
 		if(language != null) {
 			model.addAttribute("language", language);
@@ -75,7 +75,7 @@ public class Home {
 	}
 	
 	@PostMapping("/delete/{id}")
-	public String delete(@PathVariable("id") int id) {
+	public String delete(@PathVariable("id") long id) {
 		languageService.deleteLanguage(id);
 		return "redirect:/";
 	}
