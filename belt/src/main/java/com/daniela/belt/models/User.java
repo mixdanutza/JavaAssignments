@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -54,6 +55,41 @@ public class User {
 			)
 	private List<Role> roles;
 	
+	
+	//One to Many relationship with the Ring class
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private List<Ring> rings;
+	
+	//Many to many relationship with Team Class
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name="users_teams",
+			joinColumns=@JoinColumn(name="userId"),
+			inverseJoinColumns=@JoinColumn(name="teamId")
+			)
+	private List<Team> teams;
+	
+	
+	
+	
+	
+	
+	public List<Ring> getRings() {
+		return rings;
+	}
+
+	public void setRings(List<Ring> rings) {
+		this.rings = rings;
+	}
+
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
+
 	public User() {
 		
 	}

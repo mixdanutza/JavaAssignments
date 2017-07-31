@@ -8,8 +8,10 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.daniela.belt.models.Ring;
 import com.daniela.belt.models.Role;
 import com.daniela.belt.models.User;
+import com.daniela.belt.repositories.RingRepository;
 import com.daniela.belt.repositories.RoleRepository;
 import com.daniela.belt.repositories.UserRepository;
 
@@ -17,12 +19,14 @@ import com.daniela.belt.repositories.UserRepository;
 public class UserService {
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
+	private RingRepository ringRepository;
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, RingRepository ringRepository) {
 		this.userRepository=userRepository;
 		this.roleRepository=roleRepository;
 		this.bCryptPasswordEncoder=bCryptPasswordEncoder;
+		this.ringRepository=ringRepository;
 	}
 	//Create user with USER ROLE
 	public void saveWithUserRole(User user) {
@@ -76,5 +80,32 @@ public class UserService {
 	public void makeUserAdmin(User user) {
 		user.setRoles(roleRepository.findByName("ROLE_ADMIN"));
 		userRepository.save(user);
+	}
+	public void addRingToUser(Long userId, Long ringId) {
+		User user=userRepository.findOne(userId);
+		List<Ring> usersRings=user.getRings();	
+		Ring ring= ringRepository.findOne(ringId);
+		ring.setUser(user);
+		ringRepository.save(ring);
+
+	}
+	
+	
+	public void updateUser(User user) {
+		userRepository.save(user);	
+	}
+	
+	public List<User> findAllUsers() {
+		// TODO Auto-generated method stub
+		return (List<User>) userRepository.findAll();
+	}
+	
+	public List<Object[]> joinUsersAndTeams(){
+		List<Object[]> all=userRepository.joinUsersAndTeams();
+		return all;
+	}
+	public void makeUserAdmin(Long userId) {
+		User user=getUserById(userId);
+		makeUserAdmin(user);
 	}
 }

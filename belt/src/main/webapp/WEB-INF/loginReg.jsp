@@ -12,9 +12,7 @@
 
 <body>
 
-<c:if test="${logoutMessage != null}">
-    <c:out value="${logoutMessage}"/>
-</c:if>
+
 <p><form:errors path="user.*"/></p>
 <div class="formBox">
 <c:out value="${success}"/>
